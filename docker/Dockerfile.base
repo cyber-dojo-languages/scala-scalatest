@@ -1,0 +1,24 @@
+FROM ghcr.io/cyber-dojo-languages/scala:acab1ae
+LABEL maintainer=jon@jaggersoft.com
+
+# maven resolves the jars named in pom.xml into /scalatest at build time. It
+# and the JDK it pulls in leave with the virtual package, so neither reaches
+# the final image.
+#
+# ScalaTest is published against an older Scala 3 than this image compiles
+# with, so resolving it also drags in that older standard library. Two standard
+# libraries on one classpath is a coin toss over which one a run gets, so the
+# resolved copies go and the compiler's own, in /scala, are the only ones left.
+COPY pom.xml .
+RUN apk add --virtual=build-dependencies maven \
+  && mvn --batch-mode --quiet dependency:copy-dependencies -DoutputDirectory=/scalatest \
+  && rm -f /scalatest/scala-library-*.jar /scalatest/scala3-library_3-*.jar \
+  && apk del build-dependencies \
+  && rm -rf pom.xml ~/.m2 /tmp/* /var/cache/apk/*
+
+# Dumped here so that every run can replay them instead of loading the same
+# classes from the jars again. They cost about 88MB of image and save about
+# half a second of every run. The script explains which classes and why.
+COPY dump_aot_caches.sh .
+RUN bash dump_aot_caches.sh \
+  && rm dump_aot_caches.sh

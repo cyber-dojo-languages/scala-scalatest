@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.cyber-dojo</groupId>
+  <artifactId>scala-scalatest-jars</artifactId>
+  <version>1</version>
+  <packaging>pom</packaging>
+
+  <!-- Nothing is built from this pom. It exists so maven can resolve the test
+       framework's transitive closure and copy it into the image, which is what
+       keeps the jars themselves out of git and the version in one place.
+
+       scalatest_3 is an aggregate: it brings in the modules for every one of
+       ScalaTest's styles, so a learner who prefers AnyFlatSpec or AnyWordSpec
+       to the AnyFunSuite the start-point ships can switch to it. -->
+
+  <properties>
+    <scalatest.version>3.2.19</scalatest.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_3</artifactId>
+      <version>${scalatest.version}</version>
+    </dependency>
+  </dependencies>
+</project>

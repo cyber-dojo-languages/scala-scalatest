@@ -1,4 +1,4 @@
-FROM ghcr.io/cyber-dojo-languages/scala:acab1ae
+FROM ghcr.io/cyber-dojo-languages/scala:d881a23
 LABEL maintainer=jon@jaggersoft.com
 
 # maven resolves the jars named in pom.xml into /scalatest at build time. It

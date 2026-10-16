@@ -9,7 +9,8 @@
 
   <!-- Nothing is built from this pom. It exists so maven can resolve the test
        framework's transitive closure and copy it into the image, which is what
-       keeps the jars themselves out of git and the version in one place.
+       keeps the jars themselves out of git. The version below is a floor:
+       install_jars.sh moves it to the newest release before resolving.
 
        scalatest_3 is an aggregate: it brings in the modules for every one of
        ScalaTest's styles, so a learner who prefers AnyFlatSpec or AnyWordSpec

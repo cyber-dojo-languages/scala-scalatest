@@ -1,4 +1,4 @@
-FROM ghcr.io/cyber-dojo-languages/scala:b0ad590
+FROM ghcr.io/cyber-dojo-languages/scala:1853618@sha256:422a92aca31a11dc1d49ebb0a85b513211bd52bab8e2cd7d134464e434b9a845
 LABEL maintainer=jon@jaggersoft.com
 
 # maven resolves the newest jars named in pom.xml into /scalatest at build
